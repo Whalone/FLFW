@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.flfw.index.model.MmallProduct" table="mmall_product" schema="mmall">
+        <id name="id">
+            <column name="id" sql-type="int(11)"/>
+        </id>
+        <property name="categoryId">
+            <column name="category_id" sql-type="int(11)"/>
+        </property>
+        <property name="name">
+            <column name="name" sql-type="varchar(100)" length="100"/>
+        </property>
+        <property name="subtitle">
+            <column name="subtitle" sql-type="varchar(255)" not-null="true"/>
+        </property>
+        <property name="mainImage">
+            <column name="main_image" sql-type="varchar(500)" length="500" not-null="true"/>
+        </property>
+        <property name="subImages">
+            <column name="sub_images" sql-type="text" not-null="true"/>
+        </property>
+        <property name="detail">
+            <column name="detail" sql-type="text" not-null="true"/>
+        </property>
+        <property name="priceOriginal">
+            <column name="price_original" sql-type="decimal(20,2)" precision="20" scale="2"/>
+        </property>
+        <property name="stock">
+            <column name="stock" sql-type="int(11)"/>
+        </property>
+        <property name="status">
+            <column name="status" sql-type="int(6)" not-null="true"/>
+        </property>
+        <property name="createTime">
+            <column name="create_time" sql-type="datetime"/>
+        </property>
+        <property name="updateTime">
+            <column name="update_time" sql-type="datetime" not-null="true"/>
+        </property>
+        <property name="priceNow">
+            <column name="price_now" sql-type="decimal(20,2)" precision="20" scale="2"/>
+        </property>
+        <property name="sellNumber">
+            <column name="sell_number" sql-type="int(11)" not-null="true"/>
+        </property>
+        <property name="detailImage">
+            <column name="detail_image" sql-type="text" not-null="true"/>
+        </property>
+    </class>
+</hibernate-mapping>

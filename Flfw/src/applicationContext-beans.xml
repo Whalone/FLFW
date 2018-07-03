@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!--test-->
+    <!--<bean id="date" class="java.util.Date"></bean>-->
+
+    <!--商品分类-->
+    <bean id="categoryDao" class="com.flfw.index.dao.hibernate.CategoryDaoImpl">
+        <property name="hibernateTemplate" ref="hibernateTemplate"></property>
+    </bean>
+    <bean id="categoryService" class="com.flfw.index.service.Impl.CategoryServiceImpl">
+        <property name="categoryDao" ref="categoryDao"></property>
+    </bean>
+    <!--轮播图-->
+    <bean id="bannerDao" class="com.flfw.index.dao.hibernate.BannerDaoImpl">
+        <property name="hibernateTemplate" ref="hibernateTemplate"></property>
+    </bean>
+    <bean id="bannerService" class="com.flfw.index.service.Impl.BannerServiceImpl">
+        <property name="bannerDao" ref="bannerDao"></property>
+    </bean>
+    <!--商品-->
+    <bean id="productsDao" class="com.flfw.index.dao.hibernate.ProductsDaoImpl">
+        <property name="hibernateTemplate" ref="hibernateTemplate"></property>
+    </bean>
+    <bean id="productsService" class="com.flfw.index.service.Impl.ProductsServiceImpl">
+        <property name="productsDao" ref="productsDao"></property>
+        <property name="categoryService" ref="categoryService"></property>
+    </bean>
+
+    <!--购物车-->
+    <bean id="shopCartDaoImpl" class="com.flfw.cart.dao.hibernate.ShopCartDaoImpl" scope="prototype">
+        <property name="hibernateTemplate" ref="hibernateTemplate"></property>
+    </bean>
+    <bean id="shopCartService" class="com.flfw.cart.service.impl.ShopCartServiceImpl">
+        <property name="shopCartDao" ref="shopCartDaoImpl"></property>
+    </bean>
+
+    <!--用户-->
+    <bean id="User" class="com.flfw.user.model.MmallUser"/>
+    <bean id="userDaoImpl" class="com.flfw.user.dao.hibernate.UserDaoImpl" scope="prototype">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory"/>
+        </property>
+    </bean>
+
+    <bean id="userServiceImpl" class="com.flfw.user.service.impl.UserServiceImpl" scope="prototype">
+        <property name="userDao">
+            <ref bean="userDaoImpl"/>
+        </property>
+    </bean>
+
+    <!--订单-->
+    <bean id="orderDaoImpl" class="com.flfw.order.dao.impl.OrderDaoImpl">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory"/>
+        </property>
+    </bean>
+    <bean id="orderServiceImpl" class="com.flfw.order.service.impl.OrderServiceImpl">
+        <property name="orderDao">
+            <ref bean="orderDaoImpl"/>
+        </property>
+    </bean>
+
+    <bean id="order" class="com.flfw.order.model.Order"></bean>
+    <bean id="orderItem" class="com.flfw.order.model.OrderItem"></bean>
+    <bean id="shipping" class="com.flfw.order.model.Shipping"></bean>
+
+</beans>

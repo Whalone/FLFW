@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.flfw.cart.model.Mmallproduct" table="mmall_product">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="native" />
+        </id>
+        <property name="category_id" type="java.lang.Integer">
+            <column name="category_id" not-null="true" />
+        </property>
+        <property name="name" type="java.lang.String">
+            <column name="name">
+            </column>
+        </property>
+        <property name="subtitle" type="java.lang.String">
+            <column name="subtitle">
+            </column>
+        </property>
+        <property name="main_image" type="java.lang.String">
+            <column name="main_image">
+            </column>
+        </property>
+        <property name="detail" type="java.lang.String">
+            <column name="detail">
+            </column>
+        </property>
+         <property name="sub_images" type="java.lang.String">
+            <column name="sub_images">
+            </column>
+        </property>
+        <property name="price_original" type="java.math.BigDecimal">
+            <column name="price_original">
+            </column>
+        </property>
+        <property name="stock" type="java.lang.Integer">
+            <column name="stock">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="status" type="java.lang.Integer">
+            <column name="status">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="create_time" type="java.sql.Timestamp">
+            <column name="create_time">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="update_time" type="java.sql.Timestamp">
+            <column name="update_time">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="price_now" type="java.math.BigDecimal">
+            <column name="price_now">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="sell_number" type="java.lang.Integer">
+            <column name="sell_number">
+                <comment></comment>
+            </column>
+        </property>
+        <property name="detail_image" type="java.lang.String">
+            <column name="detail_image">
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

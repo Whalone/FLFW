@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.flfw.cart.model.MmallCart" table="mmall_cart">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="native" />
+        </id>
+        <property name="userId" type="java.lang.Integer">
+            <column name="user_id"  />
+        </property>
+        <property name="productId" type="java.lang.Integer">
+            <column name="product_id">
+                <comment>商品id</comment>
+            </column>
+        </property>
+        <property name="quantity" type="java.lang.Integer">
+            <column name="quantity">
+                <comment>数量</comment>
+            </column>
+        </property>
+        <property name="checked" type="java.lang.Integer">
+            <column name="checked">
+                <comment>是否选择,1=已勾选,0=未勾选</comment>
+            </column>
+        </property>
+        <property name="createTime">
+            <column name="create_time" length="26">
+                <comment>创建时间</comment>
+            </column>
+        </property>
+        <property name="updateTime">
+            <column name="update_time" length="26">
+                <comment>更新时间</comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

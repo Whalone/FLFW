@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.flfw.order.model.Order" table="mmall_order">
+		<id name="order_no">
+			<generator class="assigned"></generator>
+		</id>
+		<property name="user_id"></property>
+		<property name="shipping_id"></property>
+		<property name="payment"></property>
+		<property name="payment_type"></property>
+		<property name="postage"></property>
+		<property name="status"></property>
+		<property name="payment_time"></property>
+		<property name="send_time"></property>
+		<property name="end_time"></property>
+		<property name="close_time"></property>
+		<property name="create_time"></property>
+		<property name="update_time"></property>
+		<set name="orderItems" cascade="all" table="mmall_order_item" lazy="false">
+			<key column="order_no"></key>
+			<one-to-many class="com.flfw.order.model.OrderItem"></one-to-many>
+		</set>
+	</class>
+</hibernate-mapping>

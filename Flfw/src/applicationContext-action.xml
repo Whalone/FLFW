@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!--分类-->
+    <bean id="categoryAction" class="com.flfw.index.action.CategoryAction">
+        <property name="categoryService" ref="categoryService"></property>
+    </bean>
+
+    <!--轮播-->
+    <bean id="bannerAction" class="com.flfw.index.action.BannerAction">
+        <property name="bannerService" ref="bannerService"></property>
+    </bean>
+
+    <!--商品-->
+    <bean id="productsAction" class="com.flfw.index.action.ProductsAction">
+        <property name="productsService" ref="productsService"></property>
+    </bean>
+    <bean id="productSendAction" class="com.flfw.index.action.productSendAction">
+        <property name="productsService" ref="productsService"></property>
+    </bean>
+    <bean id="categoryProductsAction" class="com.flfw.index.action.CategoryProductAction">
+        <property name="productsService" ref="productsService"></property>
+    </bean>
+
+    <!--管理-->
+    <bean id="adminManageProduct" class="com.flfw.admin.action.adminManageProduct">
+        <property name="productsService" ref="productsService"></property>
+    </bean>
+
+    <!--购物车-->
+    <bean id="showshopCartAction" class="com.flfw.cart.action.ShowShopCartAction" scope="prototype">
+        <property name="shopCartService" ref="shopCartService"></property>
+    </bean>
+    <bean id="PayForProductsAction" class="com.flfw.cart.action.PayForProductsAction" scope="prototype">
+        <property name="shopCartService" ref="shopCartService"></property>
+        <property name="orderService" ref="orderServiceImpl"></property>
+    </bean>
+    <bean id="updateProductCartAction" class="com.flfw.cart.action.UpdateProductCartAction" scope="prototype">
+        <property name="shopCartService" ref="shopCartService"></property>
+    </bean>
+    <bean id="increaseShopCartAction" class="com.flfw.cart.action.IncreaseShopCartAction" scope="prototype">
+        <property name="shopCartService" ref="shopCartService"></property>
+    </bean>
+
+    <!--用户-->
+    <!-- 顾客登陆 -->
+    <bean id="Login" class="com.flfw.user.controler.loginAciton" scope="prototype">
+        <property name="userService">
+            <ref bean="userServiceImpl"/>
+        </property>
+    </bean>
+
+    <!-- 顾客注册 -->
+    <bean id="register" class="com.flfw.user.controler.registerAction" scope="prototype">
+        <property name="userService">
+            <ref bean="userServiceImpl"/>
+        </property>
+        <property name="user">
+            <ref bean="User"/>
+        </property>
+    </bean>
+
+    <bean id="changePassword" class="com.flfw.user.controler.changePasswordAction" scope="prototype">
+        <property name="userService">
+            <ref bean="userServiceImpl"/>
+        </property>
+    </bean>
+
+    <bean id="updateInformation" class="com.flfw.user.controler.updateAction" scope="prototype">
+        <property name="userService">
+            <ref bean="userServiceImpl"/>
+        </property>
+    </bean>
+
+    <bean id="information" class="com.flfw.user.controler.informationAction" scope="prototype"></bean>
+
+    <bean id="exit" class="com.flfw.user.controler.exitAction" scope="prototype"></bean>
+
+    <!--订单-->
+    <bean id="orderAction" class="com.flfw.order.controler.FindOrderListAction">
+        <property name="orderService">
+            <ref bean="orderServiceImpl"/>
+        </property>
+    </bean>
+
+    <bean id="OrderAction" class="com.flfw.order.controler.OrderAction">
+        <property name="orderService">
+            <ref bean="orderServiceImpl"/>
+        </property>
+        <property name="productsService" ref="productsService"></property>
+        <property name="shopCartService" ref="shopCartService"></property>
+    </bean>
+
+    <bean id="ShippingAction" class="com.flfw.order.controler.ShippingAction">
+        <property name="orderService">
+            <ref bean="orderServiceImpl"/>
+        </property>
+        <property name="shipping">
+            <ref bean="shipping"/>
+        </property>
+    </bean>
+
+</beans>

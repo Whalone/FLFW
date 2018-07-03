@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans        
+ 	             http://www.springframework.org/schema/beans/spring-beans.xsd
+ 	       		 http://www.springframework.org/schema/context        		 
+ 	             http://www.springframework.org/schema/context/spring-context.xsd
+ 	       		 http://www.springframework.org/schema/tx 
+ 	       		 http://www.springframework.org/schema/tx/spring-tx.xsd
+ 	       		 http://www.springframework.org/schema/aop 
+ 	       		 http://www.springframework.org/schema/aop/spring-aop.xsd">
+	<bean id="showshopCartAction" class="com.flfw.cart.action.ShowShopCartAction" scope="prototype">
+		<property name="shopCartService" ref="shopCartService"></property>
+	</bean> 
+	<bean id="PayForProductsAction" class="com.flfw.cart.action.PayForProductsAction" scope="prototype">
+		<property name="shopCartService" ref="shopCartService"></property>
+	</bean>
+	<bean id="updateProductCartAction" class="com.flfw.cart.action.UpdateProductCartAction" scope="prototype">
+		<property name="shopCartService" ref="shopCartService"></property>
+	</bean>
+	<bean id="increaseShopCartAction" class="com.flfw.cart.action.IncreaseShopCartAction" scope="prototype">
+		<property name="shopCartService" ref="shopCartService"></property>
+	</bean> 
+	<bean id="shopCartService" class="com.flfw.cart.service.impl.ShopCartServiceImpl">
+		<property name="shopCartDao" ref="shopCartDaoImpl"></property>
+	</bean>
+	<bean id="shopCartDaoImpl" class="com.flfw.cart.dao.hibernate.ShopCartDaoImpl" scope="prototype">
+		<property name="hibernateTemplate" ref="hibernateTemplate"></property>
+	</bean>
+	<bean id="shopCartServiceImpl" class="com.flfw.cart.service.impl.ShopCartServiceImpl" scope="prototype">
+		<property name="shopCartDao" ref="shopCartDaoImpl"></property>
+	</bean>
+	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate5.HibernateTemplate">
+       <!-- 注入sessionFactory -->
+     	<property name="sessionFactory" ref="sessionFactory"></property>
+ 	</bean>
+	
+	<bean id= "candy" class ="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close" >
+             <property name="driverClass"
+                   value="com.mysql.jdbc.Driver" >
+             </property>
+             <property name="jdbcUrl"
+                   value="jdbc:mysql://119.29.117.108:3306/mmall?serverTimezone=UTC" >
+             </property>
+             <property name="user" value="fangmingliang"></property>
+             <property name="password" value="fang"></property>
+           
+       <!--当连接池中的连接耗尽的时候c3p0一次同时获取的连接数。Default: 1 -->
+        <property name="acquireIncrement"
+         value="1" >
+        </property>
+        <!--初始化时获取三个连接，取值应在minPoolSize与maxPoolSize之间。Default: 3 -->
+        <property name="initialPoolSize"
+         value="10" >
+        </property>
+        <!--最大空闲时间,30秒内未使用则连接被丢弃。若为0则永不丢弃。Default: 0 -->
+        <property name="maxIdleTime" value="60"></property>
+        <!--连接池中保留的最大连接数。Default: 15 -->
+        <property name="maxPoolSize" value="150"></property>
+        <!--连接池中保留的最小连接数。Default: 3 -->
+        <property name="minPoolSize" value="5"></property>
+        <!--两次连接中间隔时间，单位毫秒。Default: 1000 -->
+        <property name="acquireRetryDelay" value="1000"></property>
+        <!--定义在从数据库获取新连接失败后重复尝试的次数。Default: 30 -->
+        <property name="acquireRetryAttempts" value="60"></property>
+        <!--获取连接失败将会引起所有等待连接池来获取连接的线程抛出异常。但是数据源仍有效
+        保留，并在下次调用getConnection()的时候继续尝试获取连接。如果设为true，那么在尝试
+        获取连接失败后该数据源将申明已断开并永久关闭。Default: false-->       
+        <property name="breakAfterAcquireFailure" value="false" ></property>           
+</bean>
+	
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="candy" />
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.MySQLDialect
+				</prop>
+				
+				<prop key="hibernate.transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</prop>
+			</props>
+		</property>
+		<property name="mappingResources">
+			<list>
+				<value>com/flfw/cart/model/MmallCart.hbm.xml</value>	
+				<value>com/flfw/cart/model/Mmallproduct.hbm.xml</value>	
+			</list>
+		</property>
+	</bean>
+	<bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	<tx:annotation-driven transaction-manager="transactionManager" />
+	<tx:annotation-driven transaction-manager="transactionManager" /></beans> 

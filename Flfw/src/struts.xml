@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "http://struts.apache.org/dtds/struts-2.5.dtd">
+<struts>
+    <constant name="struts.devMode" value="true"></constant>
+    <package name="flfw" extends="struts-default"  namespace="/">
+        <global-results>
+            <result name="index">/index.jsp</result>
+        </global-results>
+        <action name="product!send" class="productSendAction" method="send">
+            <result name="send">/product.jsp</result>
+        </action>
+        <action name="product!add" class="productSendAction" method="add">
+            <result name="add">/product_add.jsp</result>
+        </action>
+        <action name="product!edit" class="productSendAction" method="edit">
+            <result name="edit">/product_edit.jsp</result>
+        </action>
+    </package>
+    <package name="index" extends="struts-default" namespace="/index">
+        <action name="CategoryList" class="categoryAction"></action>
+        <action name="BannerList" class="bannerAction"></action>
+        <action name="ProductsList" class="productsAction" method="execute"></action>
+        <action name="ProductSave" class="productsAction" method="save"></action>
+        <action name="ProductUpdate" class="productsAction" method="update"></action>
+        <action name="ProductStatus" class="productsAction" method="status"></action>
+        <action name="CategoryProductsList" class="categoryProductsAction"></action>
+    </package>
+
+    <package name="admin" extends="struts-default" namespace="/admin">
+        <action name="adminProduct" class="adminManageProduct"></action>
+    </package>
+
+    <package name="cart" extends="struts-default" namespace="/">
+        <!-- 拦截器 -->
+        <interceptors>
+            <interceptor name="userLoginCheck"
+                         class="com.flfw.interceptor.userLoginCheck" />
+
+            <interceptor-stack name="myStack">
+                <interceptor-ref name="defaultStack" />
+                <interceptor-ref name="userLoginCheck"/>
+            </interceptor-stack>
+        </interceptors>
+
+        <action name="showshopcart" class="showshopCartAction" method="execute">
+            <result name="success">/shopcart.jsp</result>
+            <result name="login">/login.jsp</result>
+            <interceptor-ref name="myStack"/>
+        </action>
+
+        <action name="updateProductCart" class="updateProductCartAction" method="execute">
+            <result name="success">shopcart.jsp</result>
+        </action>
+        <action name="increaseProductCart" class="increaseShopCartAction" method="execute">
+            <result name="success" type="chain">showshopcart</result>
+            <result name="login">/login.jsp</result>
+            <interceptor-ref name="myStack"/>
+        </action>
+        <action name="payForProductsAction" class="PayForProductsAction" method="execute">
+            <result name="success" >/pay.jsp</result>
+            <!--<result name="login">/login.jsp</result>-->
+            <!--<interceptor-ref name="myStack"/>-->
+        </action>
+    </package>
+    <package name="user" extends="struts-default" namespace="/">
+        <!-- 拦截器 -->
+        <interceptors>
+            <interceptor name="userLoginCheck"
+                         class="com.flfw.interceptor.userLoginCheck" />
+
+            <interceptor-stack name="myStack">
+                <interceptor-ref name="defaultStack" />
+                <interceptor-ref name="userLoginCheck"/>
+            </interceptor-stack>
+        </interceptors>
+
+        <action name="register" class="register">
+            <result name="success" type="redirect">/index.jsp</result>
+            <result name="input">/register.jsp</result>
+        </action>
+
+        <action name="Login" class="Login">
+            <result name="success">/index.jsp</result>
+            <result name="input">/login.jsp</result>
+            <result name="admin">/admin.jsp</result>
+        </action>
+
+        <action name="changePassword" class="changePassword">
+            <result name="success">/information.jsp</result>
+            <result name="input">/password.jsp</result>
+        </action>
+
+        <action name="updateInformation" class="updateInformation">
+            <result name="success">/index.jsp</result>
+            <result name="input">/information.jsp</result>
+        </action>
+
+        <action name="information" class="information">
+            <result name="success">/information.jsp</result>
+            <result name="login">/login.jsp</result>
+            <interceptor-ref name="myStack"/>
+        </action>
+
+        <action name="exit" class="exit">
+            <result name="success">/index.jsp</result>
+        </action>
+    </package>
+    <package name="order" extends="struts-default" namespace="/">
+        <action name="orderAction" class="orderAction" method="QueryHistoryOrderList">
+            <result name="success">/order.jsp</result>
+        </action>
+
+        <action name="userDeleteOrderAction" class="OrderAction" method="DeleteOrderbyUser">
+            <result name="success">/order.jsp</result>
+        </action>
+
+        <action name="userUpdateOrderAction" class="OrderAction" method="UpdateOrderbyUser">
+            <result name="success">/order.jsp</result>
+        </action>
+
+        <action name="userCancelOrderAction" class="OrderAction" method="CancelOrderbyUser">
+            <result name="success">/order.jsp</result>
+        </action>
+
+        <action name="userAddOrderAction" class="OrderAction" method="AddOrderbyCart">
+            <result name="success">/order.jsp</result>
+            <result name="home">/index.jsp</result>
+        </action>
+
+        <action name="listShippingAction" class="ShippingAction" method="QueryShippingByUser">
+            <result name="success">/pay.jsp</result>
+        </action>
+
+        <action name="addShippingAction" class="ShippingAction" method="AddShipping">
+            <result name="success">/pay.jsp</result>
+        </action>
+
+        <action name="deleteShippingAction" class="ShippingAction" method="DeleteShipping">
+            <result name="success">/pay.jsp</result>
+        </action>
+    </package>
+
+</struts>

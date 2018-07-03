@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.flfw.order.model.Shipping" table="mmall_shipping">
+		<id name="id">
+			<generator class="native"></generator>
+		</id>
+		<property name="user_id"></property>
+		<property name="receiver_name"></property>
+		<property name="receiver_mobile"></property>
+		<property name="receiver_province"></property>
+		<property name="receiver_city"></property>
+		<property name="receiver_district"></property>
+		<property name="receiver_address"></property>
+		<property name="create_time"></property>
+		<property name="update_time"></property>
+		<!-- <many-to-one name="order" column="order_no" class="com.flfw.order.model.Order" cascade="save-update" insert="false" update="false"></many-to-one> -->
+	</class>
+</hibernate-mapping>
